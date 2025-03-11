@@ -53,15 +53,19 @@ jobs:
         with:
           sarif_file: results.sarif
 
-  sonarcloud:
-    name: SonarCloud
+  sast-sonarcloud:
+    name: SAST - SonarCloud
+    permissions: write-all
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
-      - name: SonarCloud Scan
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up SonarCloud Scanner
         uses: SonarSource/sonarcloud-github-action@master
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_TOKEN: 8ead9ab60a2fd343df5ecd88dcf13a1de201633c
+        with:
+          args: >
+            -Dsonar.organization=rivalachmad
+            -Dsonar.projectKey=RivalAchmad_BadCRUD
