@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+
 jobs:
   test:
     name: Functional Test
@@ -12,6 +13,15 @@ jobs:
       - name: Checkout the repo
         uses: actions/checkout@v4
 
+      - name: Install dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y firefox
+          wget https://github.com/mozilla/geckodriver/releases/latest/download/geckodriver-linux64.tar.gz
+          tar -xvzf geckodriver-linux64.tar.gz
+          chmod +x geckodriver
+          sudo mv geckodriver /usr/local/bin/
+
       - name: Create isolated network
         run: docker network create --driver bridge isolated
 
@@ -20,25 +30,29 @@ jobs:
 
       - name: Install docker-compose
         run: |
-          curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+          curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
           chmod +x /usr/local/bin/docker-compose  
 
       - name: Run AUT using docker-compose
-        run: docker-compose up -d
+        run: docker-compose up -d && sleep 10  # Tambahkan delay untuk memastikan server siap
 
-      - name: Get AUT URL
+      - name: Get Docker-Apache IP
         run: |
-          URL=http://$(ip -f inet -o addr show docker0 | awk '{print $4}' | cut -d '/' -f 1)
-          echo "URL=$URL" >> $GITHUB_ENV
+          DOCKER_APACHE_IP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' docker-apache)
+          echo "URL=http://$DOCKER_APACHE_IP" >> $GITHUB_ENV
 
-      - name: Check AUT URL
-        run: curl ${{ env.URL }}
+      - name: Wait for Apache to be ready
+        run: |
+          until curl -sSf ${{ env.URL }} > /dev/null; do
+            echo "Waiting for server to be ready..."
+            sleep 5
+          done
 
       - name: Selenium Preparation
         run: docker run --network=isolated -d -p 4444:4444 -p 7900:7900 -v /dev/shm:/dev/shm --name firefox-standalone selenium/standalone-firefox:latest
 
       - name: Wait for Selenium Hub
-        run: sh wait.sh
+        run: sleep 10
 
       - name: Check the Hub
         run: curl http://localhost:4444/ui
@@ -47,8 +61,7 @@ jobs:
         run: pip install -U selenium pytest pytest-xdist
 
       - name: Run tests using pytest
-        run: |
-          pytest -v -n 5 tests/
+        run: pytest -v -n 5 tests/
 
       - name: stop docker
         run: docker stop docker-apache
