@@ -13,7 +13,7 @@ class TestContactManagement(unittest.TestCase):
         try:
             cls.url = os.environ['URL']
         except:
-            cls.url = "http://localhost/BadCRUD/src"
+            cls.url = "http://localhost"
 
     def login(self):
         self.browser.get(f"{self.url}/login.php")
