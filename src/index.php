@@ -28,7 +28,7 @@ if (!isset($_SESSION['user'])) {
 
     <body>
         <div class="container">
-            <h2>Howdy, damn <?= $_SESSION['user'];?>!</h2>
+            <h2>Halo, <?= $_SESSION['user'];?></h2>
             <?php include "menu.php"; ?>
             <div class="row">
                 <div class="col">
