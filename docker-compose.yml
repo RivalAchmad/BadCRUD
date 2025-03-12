@@ -11,8 +11,8 @@ services:
     container_name: mysql-container
     environment:
       MYSQL_ROOT_PASSWORD: mysqlpassword
-      MYSQL_DATABASE: badcrud
+      MYSQL_DATABASE: damncrud
     ports:
       - "3306:3306"
     volumes:
-      - ./db/badcrud.sql:/docker-entrypoint-initdb.d/badcrud.sql:ro
+      - ./db/damncrud.sql:/docker-entrypoint-initdb.d/damncrud.sql:ro
