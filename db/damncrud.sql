@@ -14,7 +14,7 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
--- Dumping structure for table badcrud.contacts
+-- Dumping structure for table damncrud.contacts
 CREATE TABLE IF NOT EXISTS `contacts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS `contacts` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
--- Dumping data for table badcrud.contacts: ~13 rows (approximately)
+-- Dumping data for table damncrud.contacts: ~13 rows (approximately)
 INSERT INTO `contacts` (`id`, `name`, `email`, `phone`, `title`, `created`) VALUES
 	(1, 'John Does', 'johndoe@example.com', '2026550143', 'Judge', '2019-05-08 17:32:00'),
 	(2, 'David Deacon', 'daviddeacon@example.com', '2025550121', 'Security', '2019-05-08 17:28:44'),
@@ -41,7 +41,7 @@ INSERT INTO `contacts` (`id`, `name`, `email`, `phone`, `title`, `created`) VALU
 	(12, 'Daniel Deacon', 'danieldeacon@example.com', '5003423549', 'Manager', '2019-05-09 19:33:00'),
 	(13, 'Ikram', 'ikram@suhu.co', '0092988122', 'Director', '2019-12-20 10:06:09');
 
--- Dumping structure for table badcrud.users
+-- Dumping structure for table damncrud.users
 CREATE TABLE IF NOT EXISTS `users` (
   `id_user` int(2) NOT NULL AUTO_INCREMENT,
   `username` varchar(50) DEFAULT NULL,
@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`id_user`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table badcrud.users: ~1 rows (approximately)
+-- Dumping data for table damncrud.users: ~1 rows (approximately)
 INSERT INTO `users` (`id_user`, `username`, `password`) VALUES
 	(1, 'admin', '9feac9a05349e4ccc78fb9d9b4ab61b33f868c7f8b8acd56dc7303c1af0cb7ca');
 
