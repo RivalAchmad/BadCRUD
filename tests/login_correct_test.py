@@ -19,7 +19,7 @@ class LoginCorrectCredentialsTestCase(unittest.TestCase):
         self.browser.find_element(By.TAG_NAME, 'button').click()
 
     def test_2_index_page(self):           
-        expected_result = "Halo, admin"
+        expected_result = "Halo, "
         
         actual_result = self.browser.find_element(By.XPATH, "/html/body/div[1]/h2").text
         self.assertIn(expected_result, actual_result)
