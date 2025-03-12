@@ -29,7 +29,7 @@ class LogoutTestCase(unittest.TestCase):
 
     def index_page(self):
         expected_result = "admin"
-        actual_result = self.browser.find_element(By.XPATH, "//h2[contains(text(),'Halo,')]").text.split(', ')[1]
+        actual_result = self.browser.find_element(By.XPATH, "//h2[contains(text(),'Howdy, damn')]").text.split(', ')[1]
         self.assertIn(expected_result, actual_result)
 
     def logout(self):
