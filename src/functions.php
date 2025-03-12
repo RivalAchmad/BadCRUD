@@ -4,7 +4,7 @@ function pdo_connect(){
     $DATABASE_HOST = 'mysql';
     $DATABASE_USER = 'root';
     $DATABASE_PASS = 'mysqlpassword';
-    $DATABASE_NAME = 'badcrud';
+    $DATABASE_NAME = 'damncrud';
     try {
     	return new PDO('mysql:host=' . $DATABASE_HOST . ';dbname=' . $DATABASE_NAME, $DATABASE_USER, $DATABASE_PASS);
     } catch (PDOException $exception) {
